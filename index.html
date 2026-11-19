@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Management Simulator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header & Module Switcher -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-title">
+          <svg class="chip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="4" y="4" width="16" height="16" rx="2"></rect>
+            <rect x="9" y="9" width="6" height="6"></rect>
+            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path>
+          </svg>
+          <h1>Memory Management Simulator</h1>
+        </div>
+      </div>
+
+      <nav class="module-tabs" role="tablist">
+        <button class="tab-btn active" data-module="segmentation">Segmentation</button>
+        <button class="tab-btn" data-module="paging">Paging</button>
+        <button class="tab-btn" data-module="seg_paging">Seg. + Paging</button>
+        <button class="tab-btn" data-module="performance">Performance Analysis</button>
+      </nav>
+    </header>
+
+    <!-- Main Dashboard Grid -->
+    <main class="dashboard-grid" id="simulator-layout">
+      <!-- LEFT PANEL: Simulation Control & User Inputs -->
+      <aside class="left-panel">
+        <section class="card">
+          <div class="card-header">
+            <h2>⚙ Simulation Control</h2>
+          </div>
+          <div class="control-buttons">
+            <button id="btn-start" class="btn btn-primary">▶ Start</button>
+            <button id="btn-reset" class="btn btn-secondary">↻ Reset</button>
+          </div>
+        </section>
+
+        <section class="card" id="input-card"></section>
+        <section class="card" id="translation-card"></section>
+      </aside>
+
+      <!-- RIGHT PANEL: Memory Visualization, Tables & Live System Logs -->
+      <section class="right-panel">
+        <div class="card viz-card">
+          <div class="viz-header">
+            <h2>📊 Memory Visualization (Physical RAM)</h2>
+            <div class="legend">
+              <span><i class="dot empty"></i> Free / Empty</span>
+              <span><i class="dot allocated"></i> Allocated</span>
+              <span><i class="dot wasted"></i> Internal Frag.</span>
+              <span><i class="dot target"></i> Active Lookup</span>
+            </div>
+          </div>
+
+          <div id="memory-canvas" class="memory-canvas"></div>
+
+          <div class="memory-footer">
+            <span id="mem-start-label">0 B</span>
+            <span id="mem-summary-label">Total RAM: 1050 B</span>
+          </div>
+        </div>
+
+        <div class="tables-and-steps">
+          <div class="card">
+            <div class="card-header">
+              <h2 id="table-title">📋 Segment Table</h2>
+            </div>
+            <div id="table-container" class="table-wrapper"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>🔍 Step-by-Step Address Translation</h2>
+            </div>
+            <div id="translation-steps" class="steps-box"></div>
+          </div>
+        </div>
+
+        <div class="card log-card">
+          <div class="card-header">
+            <h2>🖥 System Logs &amp; Engine Output</h2>
+            <button id="btn-clear-logs" class="btn-mini">Clear</button>
+          </div>
+          <div id="system-logs" class="logs-box"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- MODULE 4: Performance Analysis View -->
+    <section id="performance-layout" class="performance-section hidden">
+      <div class="card">
+        <div class="card-header">
+          <h2>📈 Module 4: Comparative Performance Analysis</h2>
+          <div class="inline-input">
+            <label for="mem-access-time">Memory Access Time (<em>m</em> in ns):</label>
+            <input type="number" id="mem-access-time" value="100" min="10" max="1000" />
+            <button id="btn-recalc-perf" class="btn btn-primary btn-sm">Recalculate EAT</button>
+          </div>
+        </div>
+
+        <div class="metrics-grid" id="perf-kpi-cards"></div>
+
+        <div class="table-wrapper" style="margin-top: 1.25rem;">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Measure</th>
+                <th>Segmentation</th>
+                <th>Paging</th>
+                <th>Segmentation + Paging</th>
+              </tr>
+            </thead>
+            <tbody id="perf-comparison-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Credits -->
+    <footer class="app-footer">
+      <span>Guided by: <strong>Dr. Jayasakthi Velmurugan Kannaiyan</strong></span>
+      <span>•</span>
+      <span>Lohithaksha D • Hari Prasath V G • Kaviprasath B • Gathin R</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
